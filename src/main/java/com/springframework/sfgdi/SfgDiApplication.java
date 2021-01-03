@@ -1,6 +1,9 @@
 package com.springframework.sfgdi;
 
+import com.springframework.sfgdi.controllers.ConstructorInjectedController;
 import com.springframework.sfgdi.controllers.MyController;
+import com.springframework.sfgdi.controllers.PropertyInjectedController;
+import com.springframework.sfgdi.controllers.SetterInjectedController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -10,13 +13,24 @@ public class SfgDiApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(SfgDiApplication.class, args);
-
 		// here, the bean name is by default the name of class name, but with a lower case first letter
 		MyController myController = (MyController) ctx.getBean("myController");
-
 		String greeting = myController.sayHello();
-
 		System.out.println(greeting);
+
+		System.out.println("---- PROPERTY ----");
+		PropertyInjectedController propertyInjectedController = (PropertyInjectedController) ctx.getBean("propertyInjectedController");
+		System.out.println(propertyInjectedController.getGreeting());
+
+		System.out.println("---- SETTER ----");
+		SetterInjectedController setterInjectedController = (SetterInjectedController) ctx.getBean("setterInjectedController");
+		System.out.println(setterInjectedController.getGreeting());
+
+		System.out.println("---- CONSTRUCTOR ----");
+		ConstructorInjectedController constructorInjectedController = (ConstructorInjectedController) ctx.getBean("constructorInjectedController");
+		System.out.println(constructorInjectedController.getGreeting());
+
+
 	}
 
 }
